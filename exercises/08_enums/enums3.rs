@@ -19,6 +19,7 @@ struct State {
     // RGB color composed of red, green and blue.
     color: (u8, u8, u8),
     quit: bool,
+
 }
 
 impl State {
@@ -46,6 +47,27 @@ impl State {
     fn process(&mut self, message: Message) {
         // TODO: Create a match expression to process the different message
         // variants using the methods defined above.
+        match message {
+            Message::Resize { width, height } => {
+                self.resize(width, height);
+            }
+
+            Message::Move(point) => {
+                self.move_position(point);
+            }
+
+            Message::Echo(s) => {
+                self.echo(s);
+            }
+
+            Message::ChangeColor(r  , g, b) => {
+                self.change_color(r, g, b);
+            }
+
+            Message::Quit => {
+                self.quit();
+            }
+        }
     }
 }
 
